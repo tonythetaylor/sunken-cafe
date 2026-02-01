@@ -1,0 +1,62 @@
+@import "tailwindcss";
+
+/* Hide only the main page scrollbar (keep internal scrollbars if any) */
+html,
+body {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
+
+/* Sunken Cafe theme tokens */
+:root {
+  --bg: 251 247 239; /* off-white parchment */
+  --panel: 255 252 247;
+  --text: 19 22 18; /* near-black */
+  --muted: 101 107 96;
+  --emerald: 16 122 85; /* garden emerald */
+  --emeraldDark: 12 92 64;
+  --brown: 92 66 47; /* coffee undertone */
+  --orange: 245 124 0; /* citrus accent */
+  --ring: 16 122 85;
+}
+
+.dark {
+  --bg: 12 16 14;
+  --panel: 16 22 18;
+  --text: 240 244 238;
+  --muted: 166 176 165;
+  --emerald: 44 184 133;
+  --emeraldDark: 22 140 98;
+  --brown: 173 129 92;
+  --orange: 255 163 71;
+  --ring: 44 184 133;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  background: rgb(var(--bg));
+  color: rgb(var(--text));
+  overscroll-behavior: none;
+}
+
+::selection {
+  background: rgba(var(--emerald), 0.25);
+}
+
+/* nice, subtle noise-like vibe */
+.sunken-grain {
+  background-image: radial-gradient(rgba(0, 0, 0, 0.06) 1px, transparent 1px);
+  background-size: 18px 18px;
+  opacity: 0.06;
+  pointer-events: none;
+}
