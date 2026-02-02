@@ -2,6 +2,7 @@ import { create } from "zustand";
 import type { CartLine, CustomDrink, Order, UserProfile } from "../domain/types";
 import { safeJsonParse, uid } from "../lib/storage";
 import { MENU } from "../data/menu";
+import { formatDrinkNotes, priceCustomDrinkCents } from "../lib/drinkFormat";
 
 type AppState = {
   user: UserProfile | null;
@@ -21,7 +22,8 @@ type AppState = {
   setQty: (lineId: string, qty: number) => void;
   clearCart: () => void;
 
-  saveCustomDrink: (drink: Omit<CustomDrink, "id" | "createdAt">) => void;
+  addCustomDrinkToCart: (drink: CustomDrink) => void;
+  saveCustomDrink: (drink: Omit<CustomDrink, "id" | "createdAt">) => CustomDrink;
   deleteCustomDrink: (id: string) => void;
   reorder: (orderId: string) => void;
 
@@ -129,12 +131,32 @@ export const useAppStore = create<AppState>((set, get) => {
       set({ cart: [] });
     },
 
+    addCustomDrinkToCart: (drink) => {
+      // price from your simple rules (no backend yet)
+      const priceCents = priceCustomDrinkCents(drink);
+
+      const line: CartLine = {
+        lineId: uid("line"),
+        itemId: `custom:${drink.id}`,
+        name: drink.name,
+        priceCents,
+        qty: 1,
+        notes: formatDrinkNotes(drink)
+      };
+
+      const cart = [...get().cart, line];
+      const next: Persisted = { ...load(), cart };
+      save(next);
+      set({ cart });
+    },
+
     saveCustomDrink: (drink) => {
       const full: CustomDrink = { ...drink, id: uid("custom"), createdAt: Date.now() };
       const customDrinks = [full, ...get().customDrinks];
       const next: Persisted = { ...load(), customDrinks };
       save(next);
       set({ customDrinks });
+      return full;
     },
 
     deleteCustomDrink: (id) => {

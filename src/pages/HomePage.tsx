@@ -1,4 +1,4 @@
-import { ArrowRight, Gift, Sparkles } from "lucide-react";
+import { Coffee, CupSoda, Gift, Sparkles } from "lucide-react";
 import { Link } from "react-router-dom";
 import { MENU } from "../data/menu";
 import { useAppStore } from "../store/useAppStore";
@@ -7,10 +7,10 @@ import { Button } from "../components/ui/Button";
 import { Badge } from "../components/ui/Badge";
 
 export function HomePage() {
-  const user = useAppStore(s => s.user);
-  const rewardsPoints = useAppStore(s => s.rewardsPoints);
+  const user = useAppStore((s) => s.user);
+  const rewardsPoints = useAppStore((s) => s.rewardsPoints);
 
-  const newItems = MENU.filter(m => m.isNew);
+  const newItems = MENU.filter((m) => m.isNew);
 
   return (
     <div className="px-4 pb-24 pt-4">
@@ -20,8 +20,12 @@ export function HomePage() {
         <div className="relative">
           <div className="flex items-start justify-between gap-4">
             <div>
-              <div className="inline-flex items-center gap-2 rounded-full border px-3 py-1 text-xs"
-                style={{ borderColor: "rgba(var(--emerald),0.30)", background: "rgba(var(--emerald),0.06)" }}
+              <div
+                className="inline-flex items-center gap-2 rounded-full border px-3 py-1 text-xs"
+                style={{
+                  borderColor: "rgba(var(--emerald),0.30)",
+                  background: "rgba(var(--emerald),0.06)",
+                }}
               >
                 <Sparkles size={14} style={{ color: "rgb(var(--orange))" }} />
                 Campaign: Garden Week
@@ -29,12 +33,17 @@ export function HomePage() {
               <h1 className="mt-3 text-2xl font-semibold leading-tight">
                 Coffee, but make it botanical.
               </h1>
-              <p className="mt-2 text-sm" style={{ color: "rgb(var(--muted))" }}>
-                Sunken Cafe is a mobile-first PWA demo. No backend yet. Real vibes anyway.
+              <p
+                className="mt-2 text-sm"
+                style={{ color: "rgb(var(--muted))" }}
+              >
+                Sunken Cafe is a mobile-first PWA demo. No backend yet. Real
+                vibes anyway.
               </p>
             </div>
 
-            <div className="grid h-14 w-14 place-items-center rounded-2xl"
+            <div
+              className="grid h-14 w-14 place-items-center rounded-2xl"
               style={{ background: "rgba(var(--emerald),0.10)" }}
               aria-hidden
             >
@@ -42,15 +51,32 @@ export function HomePage() {
             </div>
           </div>
 
-          <div className="mt-4 flex items-center justify-between gap-3">
-            <Link to="/menu" className="flex-1">
-              <Button className="w-full">
-                Browse menu <ArrowRight size={16} />
+          <div className="mt-4 grid grid-cols-3 gap-3">
+            <Link to="/menu" className="block">
+              <Button
+                variant="outline"
+                className="h-11 w-full justify-center gap-2 whitespace-nowrap"
+              >
+                <Coffee size={16} style={{ color: "rgb(var(--emerald))" }} />
+                Menu
               </Button>
             </Link>
 
-            <Link to="/rewards" className="flex-1">
-              <Button variant="outline" className="w-full">
+            <Link to="/build" className="block">
+              <Button
+                variant="outline"
+                className="h-11 w-full justify-center gap-2 whitespace-nowrap"
+              >
+                <CupSoda size={16} style={{ color: "rgb(var(--emerald))" }} />
+                Build
+              </Button>
+            </Link>
+
+            <Link to="/rewards" className="block">
+              <Button
+                variant="outline"
+                className="h-11 w-full justify-center gap-2 whitespace-nowrap"
+              >
                 <Gift size={16} style={{ color: "rgb(var(--orange))" }} />
                 {user ? `${rewardsPoints} pts` : "Rewards"}
               </Button>
@@ -62,13 +88,17 @@ export function HomePage() {
       {/* New Items */}
       <div className="mt-5 flex items-center justify-between">
         <h2 className="text-sm font-semibold">New items</h2>
-        <Link to="/menu" className="text-xs underline" style={{ color: "rgb(var(--emerald))" }}>
+        <Link
+          to="/menu"
+          className="text-xs underline"
+          style={{ color: "rgb(var(--emerald))" }}
+        >
           View all
         </Link>
       </div>
 
       <div className="mt-3 grid gap-3">
-        {newItems.map(item => (
+        {newItems.map((item) => (
           <Card key={item.id} className="p-4">
             <div className="flex items-start justify-between gap-3">
               <div>
@@ -77,12 +107,17 @@ export function HomePage() {
                   <div className="font-semibold">{item.name}</div>
                   <Badge>NEW</Badge>
                 </div>
-                <p className="mt-1 text-sm" style={{ color: "rgb(var(--muted))" }}>
+                <p
+                  className="mt-1 text-sm"
+                  style={{ color: "rgb(var(--muted))" }}
+                >
                   {item.description}
                 </p>
               </div>
               <Link to="/menu">
-                <Button variant="outline" className="px-3">Add</Button>
+                <Button variant="outline" className="px-3">
+                  Add
+                </Button>
               </Link>
             </div>
           </Card>
@@ -94,15 +129,25 @@ export function HomePage() {
         <h2 className="text-sm font-semibold">Announcements</h2>
         <div className="mt-3 grid gap-3">
           <Card className="p-4">
-            <div className="text-sm font-semibold">Now brewing: Saved custom drinks</div>
-            <div className="mt-1 text-sm" style={{ color: "rgb(var(--muted))" }}>
-              Build a drink, save it, reorder it. Your future self will thank you.
+            <div className="text-sm font-semibold">
+              Now brewing: Saved custom drinks
+            </div>
+            <div
+              className="mt-1 text-sm"
+              style={{ color: "rgb(var(--muted))" }}
+            >
+              Build a drink, save it, reorder it. Your future self will thank
+              you.
             </div>
           </Card>
           <Card className="p-4">
             <div className="text-sm font-semibold">PWA install tip</div>
-            <div className="mt-1 text-sm" style={{ color: "rgb(var(--muted))" }}>
-              On mobile: “Add to Home Screen” for the full cafe-in-a-garden vibe.
+            <div
+              className="mt-1 text-sm"
+              style={{ color: "rgb(var(--muted))" }}
+            >
+              On mobile: “Add to Home Screen” for the full cafe-in-a-garden
+              vibe.
             </div>
           </Card>
         </div>

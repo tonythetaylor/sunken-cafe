@@ -7,6 +7,7 @@ import { CartPage } from "./pages/CartPage";
 import { OrdersPage } from "./pages/OrdersPage";
 import { RewardsPage } from "./pages/RewardsPage";
 import { AccountPage } from "./pages/AccountPage";
+import { BuildCupPage } from "./pages/BuildCupPage";
 
 export default function App() {
   return (
@@ -18,6 +19,7 @@ export default function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/menu" element={<MenuPage />} />
           <Route path="/cart" element={<CartPage />} />
+          <Route path="/build" element={<BuildCupPage />} />
           <Route path="/orders" element={<OrdersPage />} />
           <Route path="/rewards" element={<RewardsPage />} />
           <Route path="/account" element={<AccountPage />} />
